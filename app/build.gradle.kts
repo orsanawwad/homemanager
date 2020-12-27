@@ -3,7 +3,7 @@
  */
 
 plugins {
-    id("homemanager.java-application-conventions")
+    id("homemanager.kotlin-application-conventions")
 }
 
 dependencies {
@@ -12,5 +12,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("homemanager.app.App")
+    mainClass.set("homemanager.app.AppKt")
 }

@@ -3,5 +3,5 @@
  */
 
 plugins {
-    id("homemanager.java-library-conventions")
+    id("homemanager.kotlin-library-conventions")
 }
