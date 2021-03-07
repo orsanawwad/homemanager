@@ -8,4 +8,5 @@
  */
 
 rootProject.name = "homemanager"
-include("app", "list", "utilities")
+//include("app", "list", "utilities")
+include("app")
