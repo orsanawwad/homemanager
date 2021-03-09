@@ -1,0 +1,28 @@
+api:
+  recipes: # Recipe
+    id:
+    name: string
+    servings: int
+    preparation: string
+    ingredients:
+      product: Product
+      measurement: Measurement
+    # nutritions?
+  products: # Product
+    id: string
+    barcode: string
+    name: string
+    measurement: Measurement
+#  measurements: # Measurement
+#    unit
+  users:
+    id: string
+    firstname: string
+    lastname: string
+    email: string
+    username: string
+  stock:
+    product: Product
+    quantity: int
+    expire: Date
+    added: Date
