@@ -1,5 +1,6 @@
 package homemanager.app
 
+import java.util.*
 import kotlin.system.exitProcess
 
 
@@ -9,13 +10,29 @@ fun main() {
     //Login method can be more abstracted
     val user: IUser = userFactory.Login("orsanawwad","123123") ?: exitProcess(1)
 
-    //val recipeStore
+    val client = Client()
 
-    //val productStore
+    // Make it more dependency injectable?
+    val inventoryService: IInventoryService = VeryGenericInventoryService(VeryGenericInventoryFactory())
 
-    //val
+    val productFactory: AbstractProductFactory = VeryGenericProductFactory()
+
+    val stockFactory: AbstractStockFactory = VeryGenericStockFactory()
+
+    client.SetInventoryService(inventoryService)
+
+    client.SetCurrentUser(user)
+
+    client.SetCurrentProductFactory(productFactory)
+
+    client.SetStockFactory(stockFactory)
 
     println(user.GetFullname())
+
+    client.InvokeStuff()
+
+//    val uuid = UUID.randomUUID().toString()
+//    println(uuid)
 
 
 }

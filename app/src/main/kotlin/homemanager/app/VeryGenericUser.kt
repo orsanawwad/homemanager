@@ -5,7 +5,6 @@ class VeryGenericUser(
         private val lastname: String,
         private val username: String
 ): IUser {
-    private var recipeService: IRecipeService? = null
 
     override fun GetFirstname(): String {
         return firstname

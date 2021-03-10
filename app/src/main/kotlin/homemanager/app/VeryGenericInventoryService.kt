@@ -5,18 +5,35 @@ import kotlin.collections.HashMap
 
 // TODO: Add to consructor some generic storage driver
 // TODO: Add Inventory factory
-class VeryGenericInventoryService: IInventoryService {
+class VeryGenericInventoryService(private val inventoryFactory: AbstractInventoryFactory): IInventoryService {
 
     // user to ids, used for authorization
-    val userInventories = HashMap<IUser, Set<String>>()
+    private val userInventories = HashMap<IUser, HashSet<String>>()
 
     // id to inventory
-    val inventories = HashMap<String, IInventory>()
+    private val inventories = HashMap<String, IInventory>()
 
     override fun CreateInventory(user: IUser): IInventory {
         // Needs a factory to create inventories
         // Inventories will be stored here for now, later on it should be moved to a storage layer
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
+        if (userInventories[user] == null) {
+            userInventories[user] = HashSet()
+        }
+
+        val inventory = inventoryFactory.CreateInventory()
+        // if it fails here, something is really messed up
+        userInventories[user]!!.add(inventory.GetID())
+        inventories[inventory.GetID()] = inventory
+
+        return inventory
+
+//        if (userInventories[user] != null) {
+//
+//        } else {
+//            println("What")
+//        }
+
     }
 
     override fun GetAllInventories(user: IUser): List<IInventory>? {
