@@ -1,14 +1,18 @@
 package homemanager.app
 
-import homemanager.auth.AuthFactory
-import homemanager.auth.AuthRequest
-import homemanager.auth.IUserRepository
-import homemanager.auth.InMemoryUserRepository
+import homemanager.auth.*
+import homemanager.inventory.IInventoryRepository
+import homemanager.inventory.IInventoryService
+import homemanager.inventory.InMemoryInventoryRepository
+import homemanager.inventory.InMemoryInventoryService
 
 // Container for holding dependency instances
 class AppContainer {
     companion object {
         val userRepository: IUserRepository = InMemoryUserRepository()
+        val authService: IAuthService = InMemoryAuthService()
+        val inventoryRepository: IInventoryRepository = InMemoryInventoryRepository()
+        val inventoryService: IInventoryService = InMemoryInventoryService()
         val authFactory = AuthFactory()
     }
 }

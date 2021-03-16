@@ -2,7 +2,7 @@ package homemanager.auth
 
 import homemanager.app.AppContainer
 
-class InMemoryAuthProvider(userRepository: IUserRepository?): IAuthProvider {
+class InMemoryAuthService(userRepository: IUserRepository? = null): IAuthService {
 
     private var userRepository: IUserRepository = userRepository ?: AppContainer.userRepository
 

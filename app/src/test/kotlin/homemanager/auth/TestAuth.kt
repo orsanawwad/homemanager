@@ -20,7 +20,8 @@ class TestAuth {
     @Test
     fun TestInMemoryAuthProvider() {
         val userRepository: IUserRepository = InMemoryUserRepository()
-        val loginProvider: IAuthProvider = InMemoryAuthProvider(userRepository)
+        val loginService: IAuthService = InMemoryAuthService(userRepository)
+        //TODO: Replace with factory
         var user : User? = User(
                 UUID.randomUUID().toString(),
                 "Test1",
@@ -31,14 +32,14 @@ class TestAuth {
         )
         val authRequest = AuthFactory().CreateUsernamePasswordReq("test","test")
         if (user != null) {
-            loginProvider.Register(authRequest,user)
+            loginService.Register(authRequest,user)
 //            userRepository.Save(user)
         } else {
             // Why...
             assert(false)
         }
 
-        user = loginProvider.Login(authRequest)
+        user = loginService.Login(authRequest)
 
         if (user != null) {
             assert(user == userRepository.GetUserByID(user.ID))
@@ -54,6 +55,7 @@ class TestAuth {
     @Test
     fun TestInMemoryUserRepository() {
         val userRepository: IUserRepository = InMemoryUserRepository()
+        //TODO: Replace with factory
         val user = User(
                 UUID.randomUUID().toString(),
                 "Test1",

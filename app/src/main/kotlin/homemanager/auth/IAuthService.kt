@@ -1,6 +1,6 @@
 package homemanager.auth
 
-interface IAuthProvider {
+interface IAuthService {
     fun Register(authRequest: AuthRequest, user: User): Boolean
     fun Login(authRequest: AuthRequest): User?
 }
