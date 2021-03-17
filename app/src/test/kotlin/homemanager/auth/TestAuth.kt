@@ -42,10 +42,10 @@ class TestAuth {
         user = loginService.Login(authRequest)
 
         if (user != null) {
-            assert(user == userRepository.GetUserByID(user.ID))
-            assert(user == userRepository.GetUserByEmail(user.Email))
-            assert(user == userRepository.GetUserByUserName(user.UserName))
-            assert(user == userRepository.GetUserByPhone(user.Phone))
+            assert(user == userRepository.GetUserByID(user.id))
+            assert(user == userRepository.GetUserByEmail(user.email))
+            assert(user == userRepository.GetUserByUserName(user.username))
+            assert(user == userRepository.GetUserByPhone(user.phone))
         } else {
             // There's gotta be a better way
             assert(false)
@@ -66,9 +66,9 @@ class TestAuth {
         )
         userRepository.Save(user)
 
-        assert(user == userRepository.GetUserByID(user.ID))
-        assert(user == userRepository.GetUserByEmail(user.Email))
-        assert(user == userRepository.GetUserByUserName(user.UserName))
-        assert(user == userRepository.GetUserByPhone(user.Phone))
+        assert(user == userRepository.GetUserByID(user.id))
+        assert(user == userRepository.GetUserByEmail(user.email))
+        assert(user == userRepository.GetUserByUserName(user.username))
+        assert(user == userRepository.GetUserByPhone(user.phone))
     }
 }

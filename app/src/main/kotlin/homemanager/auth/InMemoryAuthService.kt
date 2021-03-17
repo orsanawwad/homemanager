@@ -10,7 +10,7 @@ class InMemoryAuthService(userRepository: IUserRepository? = null): IAuthService
 
     override fun Register(authRequest: AuthRequest, user: User): Boolean {
         if (authRequest.username != null && authRequest.password != null) {
-            storedAuth[Pair(authRequest.username,authRequest.password)] = user.ID
+            storedAuth[Pair(authRequest.username,authRequest.password)] = user.id
             userRepository.Save(user)
             return true
         }
@@ -23,5 +23,9 @@ class InMemoryAuthService(userRepository: IUserRepository? = null): IAuthService
             return id?.let { userRepository.GetUserByID(it) }
         }
         return null
+    }
+
+    override fun ValidateUser(user: User): Boolean {
+        return userRepository.GetUserByID(user.id) != null
     }
 }

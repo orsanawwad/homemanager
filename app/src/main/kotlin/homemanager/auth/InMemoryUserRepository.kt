@@ -5,8 +5,8 @@ class InMemoryUserRepository: IUserRepository {
     private val userMap = HashMap<String, User>()
 
     override fun Save(user: User) {
-        if (userMap[user.ID] == null) {
-            userMap[user.ID] = user
+        if (userMap[user.id] == null) {
+            userMap[user.id] = user
         }
     }
 
@@ -16,21 +16,21 @@ class InMemoryUserRepository: IUserRepository {
 
     override fun GetUserByUserName(userName: String): User? {
         for (user in userMap.values) {
-            if (user.UserName == userName) return user
+            if (user.username == userName) return user
         }
         return null
     }
 
     override fun GetUserByPhone(phone: String): User? {
         for (user in userMap.values) {
-            if (user.Phone == phone) return user
+            if (user.phone == phone) return user
         }
         return null
     }
 
     override fun GetUserByEmail(email: String): User? {
         for (user in userMap.values) {
-            if (user.Email == email) return user
+            if (user.email == email) return user
         }
         return null
     }

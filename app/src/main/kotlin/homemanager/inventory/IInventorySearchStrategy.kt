@@ -8,6 +8,37 @@ class SearchStrategyFactory() {
     fun ReturnAllPrducts(): ISearchStrategyPredicate<Product> {
         return ProductSearchReturnAllStrategy()
     }
+
+    fun ReturnStocksForProduct(productId: String): ISearchStrategyPredicate<Stock> {
+        return StockSearchReturnAllForProductStrategy(productId)
+    }
+
+    fun ReturnRecipeByName(keyword: String): ISearchStrategyPredicate<Recipe> {
+        return RecipeSearchByNameStrategy(keyword)
+    }
+
+    fun ReturnAllRecipes(): ISearchStrategyPredicate<Recipe> {
+        return RecipeReturnAllStrategy()
+    }
+}
+
+class RecipeReturnAllStrategy(): ISearchStrategyPredicate<Recipe> {
+    override fun Search(t: Recipe): Boolean {
+        return true
+    }
+}
+
+class RecipeSearchByNameStrategy(private val keyword: String): ISearchStrategyPredicate<Recipe> {
+    override fun Search(t: Recipe): Boolean {
+        return t.name.contains(this.keyword.trim())
+    }
+
+}
+
+class StockSearchReturnAllForProductStrategy(private val productId: String): ISearchStrategyPredicate<Stock> {
+    override fun Search(t: Stock): Boolean {
+        return t.product.id == this.productId
+    }
 }
 
 class ProductSearchReturnAllStrategy: ISearchStrategyPredicate<Product> {

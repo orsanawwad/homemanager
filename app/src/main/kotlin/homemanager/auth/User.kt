@@ -2,10 +2,10 @@ package homemanager.auth
 
 
 data class User(
-        val ID: String,
-        val FirstName: String,
-        val LastName: String,
-        val UserName: String, // username
-        val Email: String,
-        val Phone: String
+        val id: String,
+        val firstname: String,
+        val lastname: String,
+        val username: String, // username
+        val email: String,
+        val phone: String
 )
