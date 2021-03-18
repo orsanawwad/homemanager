@@ -1,14 +1,15 @@
 package homemanager.inventory
 
 import java.util.*
+import kotlin.collections.ArrayList
 
 class Recipe private constructor(
         val id: String = null ?: UUID.randomUUID().toString(),
         var name: String = "",
         var description: String = "",
-        val categories: MutableList<String> = null ?: LinkedList(),
+        val categories: MutableList<String> = null ?: ArrayList(),
         var preparation: String = "",
-        val ingredients: MutableList<Pair<Product,Int>> = LinkedList()
+        val ingredients: MutableList<Pair<Product,Int>> = ArrayList()
 ) {
 
     // Builder Pattern for Recipe
@@ -17,9 +18,9 @@ class Recipe private constructor(
             val id: String = null ?: UUID.randomUUID().toString(),
             var name: String = "",
             var description: String = "",
-            val categories: MutableList<String> = null ?: LinkedList(),
+            val categories: MutableList<String> = null ?: ArrayList(),
             var preparation: String = "",
-            val ingredients: MutableList<Pair<Product,Int>> = LinkedList()
+            val ingredients: MutableList<Pair<Product,Int>> = ArrayList()
     ) {
 
         //TODO: check if products exist?

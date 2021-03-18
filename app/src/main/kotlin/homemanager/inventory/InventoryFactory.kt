@@ -10,7 +10,16 @@ class InventoryFactory {
             name: String,
             description: String,
             price: String): Product {
-        return Product(id, barcode, name, description, price)
+        return Product.ProductBuilder()
+                .ID(id)
+                .Name(name)
+                .Barcode(barcode)
+                .Description(description)
+                .AddMetadata(ProductMetadata.PRICE,price).Build()
+    }
+
+    fun CreateProductBuilder(): Product.ProductBuilder {
+        return Product.ProductBuilder()
     }
 
     fun CreateStock(
