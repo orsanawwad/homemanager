@@ -7,12 +7,9 @@ import homemanager.inventory.IInventoryService
 import homemanager.inventory.Recipe
 
 class SmartRecipeService(
-        userService: IAuthService? = null,
-        inventoryService: IInventoryService? = null
+        private var userService: IAuthService = AppContainer.authService,
+        private var inventoryService: IInventoryService = AppContainer.inventoryService
 ): ISmartRecipeService {
-
-    private var userService: IAuthService = userService ?: AppContainer.authService
-    private var inventoryService: IInventoryService = inventoryService ?: AppContainer.inventoryService
 
     override fun CanPrepareRecipe(recipe: Recipe, user: User): Boolean {
         if(!userService.ValidateUser(user)) return false
