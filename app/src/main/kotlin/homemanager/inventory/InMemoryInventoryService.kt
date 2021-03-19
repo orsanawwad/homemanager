@@ -6,18 +6,12 @@ import homemanager.auth.User
 import homemanager.utils.EventManager
 
 class InMemoryInventoryService(
-        authService: IAuthService? = null,
-        inventoryRepository: IInventoryRepository? = null,
-        inventorySearch: IInventorySearchStrategy? = null,
-        inventorySearchStrategyFactory: SearchStrategyFactory? = null,
-        userServiceEvents: EventManager? = null
+        private var userService: IAuthService =  AppContainer.authService,
+        private var inventoryRepository: IInventoryRepository = AppContainer.inventoryRepository,
+        private var inventorySearch: IInventorySearchStrategy = AppContainer.inventorySearch,
+        private var inventorySearchStrategyFactory: SearchStrategyFactory = AppContainer.inventorySearchStrategyFactory,
+        private var userServiceEvents: EventManager = AppContainer.eventManager
 ): IInventoryService {
-//    private var userRepository: IUserRepository = userRepository ?: AppContainer.userRepository
-    private var userService: IAuthService = authService ?: AppContainer.authService
-    private var inventoryRepository: IInventoryRepository = inventoryRepository ?: AppContainer.inventoryRepository
-    private var inventorySearch: IInventorySearchStrategy = inventorySearch ?: AppContainer.inventorySearch
-    private var inventorySearchStrategyFactory: SearchStrategyFactory = inventorySearchStrategyFactory ?: AppContainer.inventorySearchStrategyFactory
-    private var userServiceEvents: EventManager = userServiceEvents ?: AppContainer.eventManager
 
     init {
         this.userServiceEvents.Subscribe<User>(EventManager.EventType.UserRegistered) {
