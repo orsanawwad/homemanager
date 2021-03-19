@@ -9,6 +9,7 @@ interface IInventoryRepository {
     // Read
     // Update
     // Delete
+    fun InitForUserID(userId: String)
 
     fun AddProduct(product: Product, userId: String)
     fun GetProduct(productId: String, userId: String): Product?

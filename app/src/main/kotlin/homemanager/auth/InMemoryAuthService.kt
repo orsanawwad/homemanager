@@ -1,10 +1,13 @@
 package homemanager.auth
 
 import homemanager.app.AppContainer
+import homemanager.utils.EventManager
+import kotlin.collections.HashMap
 
-class InMemoryAuthService(userRepository: IUserRepository? = null): IAuthService {
-
-    private var userRepository: IUserRepository = userRepository ?: AppContainer.userRepository
+class InMemoryAuthService(
+        private val userRepository: IUserRepository = AppContainer.userRepository,
+        private val eventManager: EventManager = AppContainer.eventManager
+): IAuthService {
 
     private var storedAuth = HashMap<Pair<String, String>, String>()
 
@@ -12,6 +15,7 @@ class InMemoryAuthService(userRepository: IUserRepository? = null): IAuthService
         if (authRequest.username != null && authRequest.password != null) {
             storedAuth[Pair(authRequest.username,authRequest.password)] = user.id
             userRepository.Save(user)
+            eventManager.Publish(EventManager.Event(EventManager.EventType.UserRegistered,user))
             return true
         }
         return false

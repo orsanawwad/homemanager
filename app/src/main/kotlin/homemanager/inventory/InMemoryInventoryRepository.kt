@@ -12,12 +12,14 @@ class InMemoryInventoryRepository(
     private val products: HashMap<String, HashMap<String, Product>> = products ?: HashMap()
     private val stocks: HashMap<String, HashMap<String, Stock>> = stocks ?: HashMap()
     private val recipes: HashMap<String, HashMap<String, Recipe>> = recipes ?: HashMap()
-
+    override fun InitForUserID(userId: String) {
+        products[userId] = HashMap()
+        stocks[userId] = HashMap()
+        recipes[userId] = HashMap()
+    }
 
     override fun AddProduct(product: Product, userId: String) {
-        if (!products.containsKey(userId)) {
-            products[userId] = HashMap()
-        }
+        if (!products.containsKey(userId)) return
         products[userId]?.put(product.id,product)
     }
 
@@ -34,9 +36,7 @@ class InMemoryInventoryRepository(
     }
 
     override fun AddStock(stock: Stock, userId: String) {
-        if (!stocks.containsKey(userId)) {
-            stocks[userId] = HashMap()
-        }
+        if (!stocks.containsKey(userId)) return
         stocks[userId]?.put(stock.id,stock)
     }
 
@@ -53,9 +53,7 @@ class InMemoryInventoryRepository(
     }
 
     override fun AddRecipe(recipe: Recipe, userId: String) {
-        if (!recipes.containsKey(userId)) {
-            recipes[userId] = HashMap()
-        }
+        if (!recipes.containsKey(userId)) return
         recipes[userId]?.put(recipe.id,recipe)
     }
 

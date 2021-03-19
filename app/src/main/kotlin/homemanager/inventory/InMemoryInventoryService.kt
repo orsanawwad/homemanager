@@ -3,19 +3,29 @@ package homemanager.inventory
 import homemanager.app.AppContainer
 import homemanager.auth.IAuthService
 import homemanager.auth.User
+import homemanager.utils.EventManager
 
 class InMemoryInventoryService(
         authService: IAuthService? = null,
         inventoryRepository: IInventoryRepository? = null,
         inventorySearch: IInventorySearchStrategy? = null,
-        inventorySearchStrategyFactory: SearchStrategyFactory? = null
+        inventorySearchStrategyFactory: SearchStrategyFactory? = null,
+        userServiceEvents: EventManager? = null
 ): IInventoryService {
 //    private var userRepository: IUserRepository = userRepository ?: AppContainer.userRepository
     private var userService: IAuthService = authService ?: AppContainer.authService
     private var inventoryRepository: IInventoryRepository = inventoryRepository ?: AppContainer.inventoryRepository
     private var inventorySearch: IInventorySearchStrategy = inventorySearch ?: AppContainer.inventorySearch
     private var inventorySearchStrategyFactory: SearchStrategyFactory = inventorySearchStrategyFactory ?: AppContainer.inventorySearchStrategyFactory
+    private var userServiceEvents: EventManager = userServiceEvents ?: AppContainer.eventManager
 
+    init {
+        this.userServiceEvents.Subscribe<User>(EventManager.EventType.UserRegistered) {
+            if (it.payload != null) {
+                this.inventoryRepository.InitForUserID(it.payload.id)
+            }
+        }
+    }
 
     private fun isValidUser(user: User): Boolean {
         return userService.ValidateUser(user)

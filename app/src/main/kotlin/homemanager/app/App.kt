@@ -1,16 +1,21 @@
 package homemanager.app
 
+import homemanager.app.handlers.UserServiceHandler
 import homemanager.auth.*
 import homemanager.inventory.*
+import homemanager.utils.EventManager
 
 // Patterns implemented:
-// - Strategy Pattern
+// - Filter Pattern
 // - Dependency Injection
 // - Repository Pattern
 // - Factory Pattern (For constructing entities and strategies)
 // - Builder Pattern (For constructing recipe)
+// - Observer/PubSub pattern
+// - Facade
+// Removed:
 // - Composition
-// - TODO: Observer/PubSub pattern
+// - Strategy Pattern
 // Architect patterns:
 // - Microservices:
 //     - Auth/User service
@@ -18,11 +23,16 @@ import homemanager.inventory.*
 //     - Notification service?
 //     - Calendar service
 
+//TODO: Add logger
+//TODO: Rename functions to camelcase
 // Container for holding dependency instances
 class AppContainer {
     companion object {
+        val eventManager = EventManager()
         val userRepository: IUserRepository = InMemoryUserRepository()
-        val authService: IAuthService = InMemoryAuthService()
+        private val inMemoryUserService = InMemoryAuthService()
+        val authService: IAuthService = inMemoryUserService
+//        val authServiceEvents: IEventSource<AuthServiceEvents,User> = inMemoryUserService
         private val inMemoryInventory = InMemoryInventoryRepository()
         val inventoryRepository: IInventoryRepository = inMemoryInventory
         val inventorySearch: IInventorySearchStrategy = inMemoryInventory
