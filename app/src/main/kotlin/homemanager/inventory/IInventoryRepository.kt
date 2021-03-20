@@ -13,16 +13,19 @@ interface IInventoryRepository {
 
     fun AddProduct(product: Product, userId: String)
     fun GetProduct(productId: String, userId: String): Product?
+    fun GetAllProducts(userId: String): List<Product>?
     fun UpdateProduct(product: Product, userId: String)
     fun DeletProduct(product: Product, userId: String)
 
     fun AddStock(stock: Stock, userId: String)
     fun GetStock(stockId: String, userId: String): Stock?
+    fun GetAllStocks(userId: String): List<Stock>?
     fun UpdateStock(stock: Stock, userId: String)
     fun DeletStock(stock: Stock, userId: String)
 
     fun AddRecipe(recipe: Recipe, userId: String)
     fun GetRecipe(recipeId: String, userId: String): Recipe?
+    fun GetAllRecipe(userId: String): List<Recipe>?
     fun UpdateRecipe(recipe: Recipe, userId: String)
     fun DeletRecipe(recipe: Recipe, userId: String)
 

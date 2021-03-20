@@ -2,6 +2,7 @@ package homemanager.app
 
 import homemanager.app.handlers.UserServiceHandler
 import homemanager.auth.*
+import homemanager.dietcalendar.*
 import homemanager.inventory.*
 import homemanager.utils.EventManager
 
@@ -20,8 +21,9 @@ import homemanager.utils.EventManager
 // - Microservices:
 //     - Auth/User service
 //     - Inventory service
-//     - Notification service?
 //     - Calendar service
+//     - Logger service?
+//     - Notification service?
 
 //TODO: Add logger
 //TODO: Rename functions to camelcase
@@ -32,12 +34,14 @@ class AppContainer {
         val userRepository: IUserRepository = InMemoryUserRepository()
         private val inMemoryUserService = InMemoryAuthService()
         val authService: IAuthService = inMemoryUserService
-//        val authServiceEvents: IEventSource<AuthServiceEvents,User> = inMemoryUserService
         private val inMemoryInventory = InMemoryInventoryRepository()
         val inventoryRepository: IInventoryRepository = inMemoryInventory
-        val inventorySearch: IInventorySearchStrategy = inMemoryInventory
-        val inventorySearchStrategyFactory = SearchStrategyFactory()
+//        val inventorySearch: IInventorySearchFilter = inMemoryInventory
+        val inventorySearchSFilterFactory = InventorySearchFactory()
         val inventoryService: IInventoryService = InMemoryInventoryService()
+        val dietCalendarRepository : IDietCalendarRepository = InMemoryDietCalendarRepository()
+        val dietCalendarService: IDietCalendarService = InMemoryDietCalendarService()
+        val dietCriteriaFactory: DietCriteriaFactory = DietCriteriaFactory()
         val authFactory = AuthFactory()
     }
 }

@@ -8,8 +8,7 @@ import homemanager.utils.EventManager
 class InMemoryInventoryService(
         private var userService: IAuthService =  AppContainer.authService,
         private var inventoryRepository: IInventoryRepository = AppContainer.inventoryRepository,
-        private var inventorySearch: IInventorySearchStrategy = AppContainer.inventorySearch,
-        private var inventorySearchStrategyFactory: SearchStrategyFactory = AppContainer.inventorySearchStrategyFactory,
+        private var inventorySearchFilterFactory: InventorySearchFactory = AppContainer.inventorySearchFilterFactory,
         private var userServiceEvents: EventManager = AppContainer.eventManager
 ): IInventoryService {
 
@@ -36,12 +35,13 @@ class InMemoryInventoryService(
 
     override fun SearchProduct(keyword: String, user: User): List<Product>? {
         if (isNotValidUser(user)) return null
-        return inventorySearch.SearchProductStrategy(user.id, inventorySearchStrategyFactory.SearchProductByName(keyword))
+        val searchCriteria = inventorySearchFilterFactory.SearchProductByName(keyword)
+        return inventoryRepository.GetAllProducts(user.id)?.let { searchCriteria.Search(it) }
     }
 
     override fun GetAllProducts(user: User): List<Product>? {
         if (isNotValidUser(user)) return null
-        return inventorySearch.SearchProductStrategy(user.id, inventorySearchStrategyFactory.ReturnAllPrducts())
+        return inventoryRepository.GetAllProducts(user.id)
     }
 
     override fun AddStock(stock: Stock, user: User) {
@@ -53,7 +53,8 @@ class InMemoryInventoryService(
     override fun GetStocksForProduct(productId: String, user: User): List<Stock>? {
         if (isNotValidUser(user)) return null
         if (inventoryRepository.GetProduct(productId,user.id) == null) return null
-        return inventorySearch.SearchStockStrategy(user.id, inventorySearchStrategyFactory.ReturnStocksForProduct(productId))
+        val searchCriteria = inventorySearchFilterFactory.ReturnStocksForProduct(productId)
+        return inventoryRepository.GetAllStocks(user.id)?.let { searchCriteria.Search(it) }
     }
 
     override fun UpdateStock(stock: Stock, user: User) {
@@ -87,11 +88,12 @@ class InMemoryInventoryService(
 
     override fun SearchRecipe(keyword: String, user: User): List<Recipe>? {
         if (isNotValidUser(user)) return null
-        return inventorySearch.SearchRecipeStrategy(user.id, inventorySearchStrategyFactory.ReturnRecipeByName(keyword))
+        val searchCriteria = inventorySearchFilterFactory.SearchRecipeByName(keyword)
+        return inventoryRepository.GetAllRecipe(user.id)?.let { searchCriteria.Search(it) }
     }
 
     override fun GetAllRecipes(user: User): List<Recipe>? {
         if (isNotValidUser(user)) return null
-        return inventorySearch.SearchRecipeStrategy(user.id, inventorySearchStrategyFactory.ReturnAllRecipes())
+        return inventoryRepository.GetAllRecipe(user.id)
     }
 }

@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test
 class TestInventory {
 
     @Test
-    fun TestSearchStrategy() {
+    fun TestSearchFilter() {
         val inv = InMemoryInventoryRepository()
         val inventoryRepository: IInventoryRepository = inv
-        val inventorySearch: IInventorySearchStrategy = inv
+        val inventorySearch: IInventorySearchFilter = inv
 
-        inventorySearch.SearchProductStrategy("Test",SearchStrategyFactory().ReturnAllPrducts())
-        TODO("WIP")
+        inventorySearch.SearchProductFilter("Test",SearchFilterFactory().ReturnAllPrducts())
+//        TODO("WIP")
     }
 }
