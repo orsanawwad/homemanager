@@ -76,7 +76,7 @@ class InMemoryDietCalendarService(
         return userRecipes?.filter { recipesIDs.contains(it.id) }
     }
 
-    override fun getMealsForToday(calendar: DietCalendar, currentTime: LocalDateTime, applyRestriction: Boolean, user: User): List<List<Recipe>>? {
+    override fun getAllMealsForToday(calendar: DietCalendar, currentTime: LocalDateTime, applyRestriction: Boolean, user: User): List<List<Recipe>>? {
         val listOfRecipeRanges: MutableList<MutableList<Recipe>> = ArrayList()
         val userRecipes = inventoryService.GetAllRecipes(user) ?: return null
         for (dayZone in calendar.dayZones) {
@@ -95,7 +95,7 @@ class InMemoryDietCalendarService(
     }
 
     override fun getRandomMealsForToday(calendar: DietCalendar, currentTime: LocalDateTime, user: User): List<Recipe>? {
-        val meals = getMealsForToday(calendar, currentTime, false, user)
+        val meals = getAllMealsForToday(calendar, currentTime, false, user)
         val randomMeal: ICriteriaCustomReturn<List<Recipe>,List<Recipe>> = dietCriteriaFactory.RandomMeal()
         return meals?.let { randomMeal.Search(it) }
     }

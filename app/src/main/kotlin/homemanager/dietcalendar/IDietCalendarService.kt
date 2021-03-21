@@ -14,7 +14,7 @@ interface IDietCalendarService {
     fun addRecipeForDayZone(calendar: DietCalendar, dayZone: DayZone, recipe: Recipe, user: User): Boolean
     fun deleteRecipeForDayZone(calendar: DietCalendar, dayZone: DayZone, recipe: Recipe, user: User): Boolean
     fun getCurrentMeals(calendar: DietCalendar, currentTime: LocalDateTime, user: User): List<Recipe>?
-    fun getMealsForToday(calendar: DietCalendar, currentTime: LocalDateTime, applyRestriction: Boolean, user: User): List<List<Recipe>>?
+    fun getAllMealsForToday(calendar: DietCalendar, currentTime: LocalDateTime, applyRestriction: Boolean, user: User): List<List<Recipe>>?
     fun getRandomMealsForToday(calendar: DietCalendar, currentTime: LocalDateTime, user: User): List<Recipe>?
 
 }

@@ -5,6 +5,8 @@ import homemanager.auth.*
 import homemanager.dietcalendar.*
 import homemanager.inventory.*
 import homemanager.utils.EventManager
+import io.javalin.Javalin
+import io.javalin.apibuilder.ApiBuilder.crud
 
 // Patterns implemented:
 // - Filter Pattern
@@ -48,4 +50,8 @@ class AppContainer {
 
 fun main() {
     println("Hello World")
+    val app = Javalin.create().start(8888)
+    app.routes {
+        crud("users/:user-id", UserServiceHandler())
+    }
 }
