@@ -13,7 +13,7 @@ class SmartRecipeService(
 
     override fun CanPrepareRecipe(recipe: Recipe, user: User): Boolean {
         if(!userService.ValidateUser(user)) return false
-        for ((product, quantity) in recipe.ingredients) {
+        for ((product, quantity) in recipe) {
             val stocksList = inventoryService.GetStocksForProduct(product.id,user) ?: return false
             var found = false
             // TODO: check expire date
@@ -32,7 +32,7 @@ class SmartRecipeService(
     override fun ConsumeRecipe(recipe: Recipe, user: User): Boolean {
         if(!userService.ValidateUser(user)) return false
 
-        for ((product, quantity) in recipe.ingredients) {
+        for ((product, quantity) in recipe) {
             val stocksList = inventoryService.GetStocksForProduct(product.id,user) ?: return false
             val stocksSortedList = stocksList.sortedBy { it.expireDate }
 //            val stocksSortedList = stocksList.sortedByDescending { it.expireDate }

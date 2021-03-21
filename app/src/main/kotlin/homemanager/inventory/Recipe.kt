@@ -10,7 +10,7 @@ class Recipe private constructor(
         val categories: MutableList<String> = null ?: ArrayList(),
         var preparation: String = "",
         val ingredients: MutableList<Pair<Product,Int>> = ArrayList()
-) {
+): Iterable<Pair<Product, Int>> {
 
     // Builder Pattern for Recipe
     // TODO: Refactor, constructor is optional and only used to load back data
@@ -30,6 +30,10 @@ class Recipe private constructor(
         fun Preparation(preparation: String) = apply { this.preparation = preparation }
         fun AddIngredient(product: Product, quantity: Int) = apply { this.ingredients.add(Pair(product,quantity)) }
         fun Build() = Recipe(id, name, description, categories, preparation, ingredients)
+    }
+
+    override fun iterator(): Iterator<Pair<Product, Int>> {
+        return ingredients.iterator()
     }
 
 }

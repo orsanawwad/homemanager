@@ -54,7 +54,8 @@ class InMemoryDietCalendarService(
 
     override fun addRecipeForDayZone(calendar: DietCalendar, dayZone: DayZone, recipe: Recipe, user: User): Boolean {
         dayZone.recipes.add(recipe.id)
-        if (calendar.dayZones[dayZone.index].index != dayZone.index) return false
+//        if (calendar.dayZones[dayZone.index].index != dayZone.index) return false
+        if (!calendar.hasDayZone(dayZone)) return false
         calendar.dayZones[dayZone.index] = dayZone
         dietCalendarRepo.updateUserCalendar(userID = user.id,calendar = calendar)
         return true
@@ -62,7 +63,8 @@ class InMemoryDietCalendarService(
 
     override fun deleteRecipeForDayZone(calendar: DietCalendar, dayZone: DayZone, recipe: Recipe, user: User): Boolean {
         dayZone.recipes.removeIf { it == recipe.id }
-        if (calendar.dayZones[dayZone.index].index != dayZone.index) return false
+//        if (calendar.dayZones[dayZone.index].index != dayZone.index) return false
+        if (!calendar.hasDayZone(dayZone)) return false
         calendar.dayZones[dayZone.index] = dayZone
         dietCalendarRepo.updateUserCalendar(userID = user.id,calendar = calendar)
         return true

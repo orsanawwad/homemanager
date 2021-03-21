@@ -37,7 +37,7 @@ class AppContainer {
         private val inMemoryInventory = InMemoryInventoryRepository()
         val inventoryRepository: IInventoryRepository = inMemoryInventory
 //        val inventorySearch: IInventorySearchFilter = inMemoryInventory
-        val inventorySearchSFilterFactory = InventorySearchFactory()
+        val inventorySearchFilterFactory = InventorySearchFactory()
         val inventoryService: IInventoryService = InMemoryInventoryService()
         val dietCalendarRepository : IDietCalendarRepository = InMemoryDietCalendarRepository()
         val dietCalendarService: IDietCalendarService = InMemoryDietCalendarService()

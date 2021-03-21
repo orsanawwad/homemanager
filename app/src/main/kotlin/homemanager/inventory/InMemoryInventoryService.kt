@@ -69,7 +69,7 @@ class InMemoryInventoryService(
 
     override fun AddRecipe(recipe: Recipe, user: User) {
         if (isNotValidUser(user)) return
-        for ((prod, quan) in recipe.ingredients) {
+        for ((prod, quan) in recipe) {
             if (inventoryRepository.GetProduct(prod.id, user.id) == null) return
             if (quan < 1) return
         }
@@ -79,7 +79,7 @@ class InMemoryInventoryService(
     override fun UpdateRecipe(recipe: Recipe, user: User) {
         if (isNotValidUser(user)) return
         if (inventoryRepository.GetRecipe(recipe.id, user.id) == null) return
-        for ((prod, quan) in recipe.ingredients) {
+        for ((prod, quan) in recipe) {
             if (inventoryRepository.GetProduct(prod.id, user.id) == null) return
             if (quan < 1) return
         }

@@ -28,6 +28,10 @@ data class DietCalendar(
         val dayZones: MutableList<DayZone> = mutableListOf(),
         val dietRestrictions: DietRestrictions
 ) {
+
+    fun hasDayZone(dayZone: DayZone) = dayZones[dayZone.index].index == dayZone.index
+
+
     fun getCurrentDayZone(currentTime : LocalDateTime) : DayZone? {
         val currentHour = currentTime.hour
         for(dayZone in dayZones) {
